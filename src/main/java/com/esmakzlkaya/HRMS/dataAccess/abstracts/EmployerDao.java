@@ -6,5 +6,5 @@ import com.esmakzlkaya.HRMS.entities.concretes.Employer;
 
 public interface EmployerDao extends JpaRepository<Employer, Integer>{
 
-	Employer findByUserId(int userId);
+	Employer findById(int id);
 }

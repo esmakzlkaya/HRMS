@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.esmakzlkaya.HRMS.business.abstracts.JobSeekerService;
 import com.esmakzlkaya.HRMS.business.abstracts.UserCheckService;
+import com.esmakzlkaya.HRMS.core.adapters.MernisServiceAdapter;
 import com.esmakzlkaya.HRMS.core.entities.concretes.User;
 import com.esmakzlkaya.HRMS.core.utilities.results.DataResult;
 import com.esmakzlkaya.HRMS.core.utilities.results.ErrorResult;
@@ -20,18 +21,18 @@ import com.esmakzlkaya.HRMS.entities.concretes.JobSeeker;
 public class JobSeekerManager implements JobSeekerService{
 	
 	private JobSeekerDao jobSeekerDao;
-	private UserCheckService userCheckService;
+	private MernisServiceAdapter mernisServiceAdapter;
 	
 	@Autowired
-	public JobSeekerManager(JobSeekerDao jobSeekerDao,UserCheckService userCheckService) {
+	public JobSeekerManager(JobSeekerDao jobSeekerDao,MernisServiceAdapter mernisServiceAdapter) {
 		super();
 		this.jobSeekerDao = jobSeekerDao;
-		this.userCheckService=userCheckService;
+		this.mernisServiceAdapter=mernisServiceAdapter;
 	}
 
 	@Override
 	public Result add(JobSeeker jobSeeker) throws MalformedURLException {
-		if(IsUserProfilesValid(jobSeeker)&&(IsMernisVerified(jobSeeker)&&(IsUserProfilesDuplicated(jobSeeker)))) {
+		if(IsUserProfilesValid(jobSeeker)&&(IsMernisVerified(jobSeeker)&&(IsUserProfilesDuplicated(jobSeeker)==false))) {
 			EmailVerification();
 			jobSeekerDao.save(jobSeeker);
 			return new SuccessResult("Kullanıcı ekleme başarılı");
@@ -45,30 +46,29 @@ public class JobSeekerManager implements JobSeekerService{
 
 	private boolean IsUserProfilesDuplicated(JobSeeker jobSeeker) {
 		List<JobSeeker> users= jobSeekerDao.findAll();
-		User user=jobSeeker.getUser();
 		for(JobSeeker seeker:users) {
-			if(user.getEmail()==seeker.getUser().getEmail()||seeker.getNationalityId()==jobSeeker.getNationalityId()) {
-				return false;
+			if((jobSeeker.getEmail()==seeker.getEmail())||(seeker.getNationalityId()==jobSeeker.getNationalityId())) {
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	private boolean IsMernisVerified(JobSeeker jobSeeker) throws MalformedURLException {
-		userCheckService.CheckIfRealPerson(jobSeeker);
-		if(this.userCheckService.CheckIfRealPerson(jobSeeker)) 
+		mernisServiceAdapter.CheckIfRealPerson(jobSeeker);
+		if(this.mernisServiceAdapter.CheckIfRealPerson(jobSeeker)) 
 		{
-			this.add(jobSeeker);
+			System.out.println("Person is valid");
 			return true;
 		}else {
+			System.out.println("Not a valid person");
 			return false;
 		}
 	}
 
 	private boolean IsUserProfilesValid(JobSeeker jobSeeker) {
 		//JobSeekerDetailDto jobSeekerUser=jobSeekerDao.findByUserId(jobSeeker.getUserId());
-		User jobSeekerUser=jobSeeker.getUser();
-		if(jobSeekerUser.getEmail()!=null&&jobSeeker.getBirthYear()!=0&&jobSeeker.getFirstName()!=null&&jobSeeker.getLastName()!=null&&jobSeeker.getNationalityId()!=null&&jobSeeker.getPassword()!=null)
+		if(jobSeeker.getEmail()!=null&&jobSeeker.getBirthYear()!=0&&jobSeeker.getFirstName()!=null&&jobSeeker.getLastName()!=null&&jobSeeker.getNationalityId()!=null&&jobSeeker.getPassword()!=null)
 		{
 			return true;
 		}
@@ -76,8 +76,8 @@ public class JobSeekerManager implements JobSeekerService{
 	}
 
 	@Override
-	public DataResult<JobSeeker> findByUserId(int userId) {
-		return new SuccessDataResult<JobSeeker>(jobSeekerDao.findByUserId(userId));
+	public DataResult<JobSeeker> findById(int id) {
+		return new SuccessDataResult<JobSeeker>(jobSeekerDao.findById(id));
 	}
 
 	@Override

@@ -3,12 +3,14 @@ package com.esmakzlkaya.HRMS.core.adapters;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.springframework.stereotype.Service;
+
 import com.esmakzlkaya.HRMS.business.abstracts.UserCheckService;
 import com.esmakzlkaya.HRMS.entities.concretes.JobSeeker;
 
 import tr.gov.nvi.tckimlik.ws.KPSPublic;
 import tr.gov.nvi.tckimlik.ws.KPSPublicSoap;
-
+@Service
 public class MernisServiceAdapter implements UserCheckService {
 
 	@Override

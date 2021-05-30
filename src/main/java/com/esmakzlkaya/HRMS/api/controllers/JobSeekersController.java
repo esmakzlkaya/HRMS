@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +33,7 @@ public class JobSeekersController {
 	}
 	
 	@PostMapping("/add")
-	Result add(JobSeeker jobSeeker) throws MalformedURLException {
+	Result add(@RequestBody JobSeeker jobSeeker) throws MalformedURLException {
 		return this.jobSeekerService.add(jobSeeker);
 	}
 	

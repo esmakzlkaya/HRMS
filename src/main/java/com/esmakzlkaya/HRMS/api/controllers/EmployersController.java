@@ -27,12 +27,12 @@ public class EmployersController {
 	}
 	
 	@GetMapping("/getall")
-	DataResult<List<Employer>> getAll(){
+	public DataResult<List<Employer>> getAll(){
 		return this.employerService.findAll();
 	}
 	
 	@PostMapping("/add")
-	Result add(@RequestBody Employer employer) {
+	public Result add(@RequestBody Employer employer) {
 		return this.employerService.add(employer);
 	}
 	

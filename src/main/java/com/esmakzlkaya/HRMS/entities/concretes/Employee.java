@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","users"})
 @Table(name="Employees")
 @Data
 public class Employee {
@@ -32,9 +31,13 @@ public class Employee {
 	@Column(name="id")
 	private int id;
 	
-	//@Column(name="user_id")
-	//private int userId;
+//	@Column(name="user_id")
+//	private int userId;
 	
+	@Column(name="e_mail")
+	private String email;
+
+	@Column(name="password")
 	private String password;
 	
 	@Column(name="department_id")
@@ -52,8 +55,8 @@ public class Employee {
 	@Column(name="hire_date")
 	private Date hireDate;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="user_id",referencedColumnName = "id")
-	private User user;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="user_id",referencedColumnName = "id")
+//	private User user;
 
 }

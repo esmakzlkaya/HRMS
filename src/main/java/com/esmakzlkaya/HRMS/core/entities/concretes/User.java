@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","employers"})
 @Table(name="Users")
 public class User {
 	
@@ -44,12 +43,12 @@ public class User {
 	@Column(name="status")
 	private boolean status;
 
-	@OneToOne(mappedBy = "user")
-	private Employer employer;
-	
-	@OneToOne(mappedBy = "user")
-	private Employee employee;
-	
-	@OneToOne(mappedBy = "user")
-	private JobSeeker jobSeeker;
+//	@OneToOne(mappedBy = "user")
+//	private Employer employer;
+//	
+//	@OneToOne(mappedBy = "user")
+//	private Employee employee;
+//	
+//	@OneToOne(mappedBy = "user")
+//	private JobSeeker jobSeeker;
 }

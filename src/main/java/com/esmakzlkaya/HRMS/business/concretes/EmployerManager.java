@@ -49,7 +49,7 @@ public class EmployerManager implements EmployerService{
 	}
 
 	private boolean CheckIfMailValid(Employer employer) {
-		String employerMail=employer.getUser().getEmail();
+		String employerMail=employer.getEmail();
 		String employerWebSite=employer.getWebSite();
 		String translation=translateTrToEng(employerWebSite);
 		String regexString="^[A-Z0-9._%+-]+@"+translation+"?$";
@@ -79,7 +79,7 @@ public class EmployerManager implements EmployerService{
 		List<Employer> users=employerDao.findAll();
 	//	EmployerDetailDto employerUser=employerDao.findByUserId(employer.getUserId());
 		for(Employer user:users) {
-			if(user.getUser().getEmail()==employer.getUser().getEmail()) {
+			if(user.getEmail()==employer.getEmail()) {
 				return false;
 			}
 		}
@@ -88,8 +88,7 @@ public class EmployerManager implements EmployerService{
 
 	private boolean IsUserProfilesValid(Employer employer) {
 		//EmployerDetailDto user=employerDao.findByUserId(employer.getUserId());
-		User user=employer.getUser();
-		if(employer.getCompanyName()!=null&&user.getEmail()!=null&&employer.getPassword()!=null&&employer.getWebSite()!=null&&user.getPhone_number()!=null)
+		if(employer.getCompanyName()!=null&&employer.getEmail()!=null&&employer.getPassword()!=null&&employer.getWebSite()!=null&&employer.getPhoneNumber()!=null)
 		{
 			return true;
 		}

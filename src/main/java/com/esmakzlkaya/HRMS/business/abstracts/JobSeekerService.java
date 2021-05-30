@@ -10,6 +10,6 @@ import com.esmakzlkaya.HRMS.entities.concretes.JobSeeker;
 public interface JobSeekerService {
 
 	Result add(JobSeeker jobSeeker) throws MalformedURLException;
-	DataResult<JobSeeker> findByUserId(int id);
+	DataResult<JobSeeker> findById(int id);
 	DataResult<List<JobSeeker>> findAll();
 }
