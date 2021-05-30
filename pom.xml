@@ -2,21 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.esmakzlkaya</groupId>
+	<artifactId>HRMS</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.esmakzlkaya</groupId>
-	<artifactId>HRMS</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>HRMS</name>
-	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+	<cxf.version>3.4.3</cxf.version>
+ 	<maven.compiler.source>16</maven.compiler.source>
+ 	<maven.compiler.target>16</maven.compiler.target>
 	</properties>
+	<name>HRMS</name>
 	<dependencies>
+	<dependency>
+ <groupId>com.sun.xml.ws</groupId>
+ <artifactId>jaxws-rt</artifactId>
+ <version>3.0.1</version>
+</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -25,6 +31,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+	</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -36,14 +47,22 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.9.2</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.9.2</version>
+</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -58,7 +77,28 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+    			<artifactId>cxf-codegen-plugin</artifactId>
+    			<version>${cxf.version}</version>
+   			 	<executions>
+        			<execution>
+            			<id>generate-sources</id>
+            			<phase>generate-sources</phase>
+            			<configuration>
+                			<sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
+                			<wsdlOptions>
+                    			<wsdlOption>
+                        			<wsdl>${basedir}/src/main/resources/Mernis.wsdl</wsdl>
+                    			</wsdlOption>
+                			</wsdlOptions>
+            			</configuration>
+            			<goals>
+                			<goal>wsdl2java</goal>
+            			</goals>
+        			</execution>
+   		 		</executions>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>

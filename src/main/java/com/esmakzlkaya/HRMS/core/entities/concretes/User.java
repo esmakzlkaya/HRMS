@@ -4,25 +4,26 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.esmakzlkaya.HRMS.entities.concretes.Employee;
+import com.esmakzlkaya.HRMS.entities.concretes.Employer;
+import com.esmakzlkaya.HRMS.entities.concretes.JobSeeker;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","employers"})
 @Table(name="Users")
 public class User {
-	public User() {
-		
-	}
 	
-	public User(int id, String email, String phone_number, byte[] passwordHash, byte[] passwordSalt, boolean status) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.phone_number = phone_number;
-		this.passwordHash = passwordHash;
-		this.passwordSalt = passwordSalt;
-		this.status = status;
-	}
 	@Id
 	@GeneratedValue
 	@Column(name="id")
@@ -43,52 +44,12 @@ public class User {
 	@Column(name="status")
 	private boolean status;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPhone_number() {
-		return phone_number;
-	}
-
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
-	}
-
-	public byte[] getPasswordHash() {
-		return passwordHash;
-	}
-
-	public void setPasswordHash(byte[] passwordHash) {
-		this.passwordHash = passwordHash;
-	}
-
-	public byte[] getPasswordSalt() {
-		return passwordSalt;
-	}
-
-	public void setPasswordSalt(byte[] passwordSalt) {
-		this.passwordSalt = passwordSalt;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
+	@OneToOne(mappedBy = "user")
+	private Employer employer;
+	
+	@OneToOne(mappedBy = "user")
+	private Employee employee;
+	
+	@OneToOne(mappedBy = "user")
+	private JobSeeker jobSeeker;
 }

@@ -3,11 +3,15 @@ package com.esmakzlkaya.HRMS.entities.concretes;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
 @Table(name="Jobs")
+@Data
 public class Job {
 	public Job() {
 		super();
@@ -21,7 +25,7 @@ public class Job {
 	}
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
@@ -31,27 +35,4 @@ public class Job {
 	@Column(name="position_name")
 	private String positionName;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(int departmentId) {
-		this.departmentId = departmentId;
-	}
-
-	public String getPosition_name() {
-		return positionName;
-	}
-
-	public void setPosition_name(String position_name) {
-		this.positionName = position_name;
-	}
 }

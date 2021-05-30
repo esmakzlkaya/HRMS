@@ -1,93 +1,53 @@
 package com.esmakzlkaya.HRMS.entities.concretes;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.esmakzlkaya.HRMS.core.entities.concretes.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","users"})
 @Table(name="JobSeekers")
+@Data
 public class JobSeeker {
-	public JobSeeker() {
-		
-	}
-	
-	public JobSeeker(int id, int userId, int firstName, int lastName, int nationalityId, int birthYear) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.nationalityId = nationalityId;
-		this.birthYear = birthYear;
-	}
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="user_id")
-	private int userId;
+	//@Column(name="user_id")
+	//private int userId;
 	
 	@Column(name="first_name")
-	private int firstName;
+	private String firstName;
 	
 	@Column(name="last_name")
-	private int lastName;
+	private String lastName;
+
+	private String password;
 
 	@Column(name="nationality_id")
-	private int nationalityId;
+	private String nationalityId;
 	
 	@Column(name="birth_year")
 	private int birthYear;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public int getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(int firstName) {
-		this.firstName = firstName;
-	}
-
-	public int getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(int lastName) {
-		this.lastName = lastName;
-	}
-
-	public int getNationalityId() {
-		return nationalityId;
-	}
-
-	public void setNationalityId(int nationalityId) {
-		this.nationalityId = nationalityId;
-	}
-
-	public int getBirthYear() {
-		return birthYear;
-	}
-
-	public void setBirthYear(int birthYear) {
-		this.birthYear = birthYear;
-	}
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="user_id",referencedColumnName = "id")
+	private User user;
 }

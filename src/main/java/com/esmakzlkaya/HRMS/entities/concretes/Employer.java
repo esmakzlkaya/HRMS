@@ -1,69 +1,49 @@
 package com.esmakzlkaya.HRMS.entities.concretes;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.esmakzlkaya.HRMS.core.entities.concretes.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="Employers")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","users"})
 public class Employer {
-	public Employer() {
-		
-	}
 	
-	public Employer(int id, int userId, String companyName, String webSite) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.companyName = companyName;
-		this.webSite = webSite;
-	}
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="user_id")
-	private int userId;
+	/*
+	 * @Column(name="user_id") private int userId;
+	 */
+	
+	private String password;
 	
 	@Column(name="company_name")
 	private String companyName;
 	
 	@Column(name="web_site")
 	private String webSite;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-
-	public String getWebSite() {
-		return webSite;
-	}
-
-	public void setWebSite(String webSite) {
-		this.webSite = webSite;
-	}
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="user_id",referencedColumnName = "id")
+	private User user;
 
 }

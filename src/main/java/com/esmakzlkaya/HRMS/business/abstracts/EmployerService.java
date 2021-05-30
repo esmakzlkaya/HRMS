@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.esmakzlkaya.HRMS.core.utilities.results.DataResult;
 import com.esmakzlkaya.HRMS.core.utilities.results.Result;
-import com.esmakzlkaya.HRMS.entities.concretes.Job;
+import com.esmakzlkaya.HRMS.entities.concretes.Employer;
 
-public interface JobService {
-	DataResult<List<Job>> findAll();
-	Result add(Job job);
+public interface EmployerService {
+
+	Result add(Employer employer);
+	DataResult<List<Employer>> findAll();
 }

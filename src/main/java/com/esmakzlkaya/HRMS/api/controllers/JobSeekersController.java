@@ -1,41 +1,40 @@
 package com.esmakzlkaya.HRMS.api.controllers;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.esmakzlkaya.HRMS.business.abstracts.JobService;
+import com.esmakzlkaya.HRMS.business.abstracts.JobSeekerService;
 import com.esmakzlkaya.HRMS.core.utilities.results.DataResult;
 import com.esmakzlkaya.HRMS.core.utilities.results.Result;
-import com.esmakzlkaya.HRMS.entities.concretes.Job;
-
+import com.esmakzlkaya.HRMS.entities.concretes.JobSeeker;
 
 @RestController
-@RequestMapping("/api/jobs")
-public class JobsController {
-	private JobService jobService;
+@RequestMapping("/api/jobseekers")
+public class JobSeekersController {
+
+	private JobSeekerService jobSeekerService;
 
 	@Autowired
-	public JobsController(JobService jobService) {
+	public JobSeekersController(JobSeekerService jobSeekerService) {
 		super();
-		this.jobService = jobService;
+		this.jobSeekerService = jobSeekerService;
 	}
 	
 	@GetMapping("/getall")
-	DataResult<List<Job>> getAll(){
-		return this.jobService.findAll();
+	DataResult<List<JobSeeker>> getAll(){
+		return this.jobSeekerService.findAll();
 	}
 	
 	@PostMapping("/add")
-	Result add(@RequestBody Job job) {
-		return this.jobService.add(job);
+	Result add(JobSeeker jobSeeker) throws MalformedURLException {
+		return this.jobSeekerService.add(jobSeeker);
 	}
 	
 	
-
 }
