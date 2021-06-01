@@ -1,5 +1,8 @@
 package com.esmakzlkaya.HRMS.entities.concretes;
 
+import java.sql.Date;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -47,8 +51,11 @@ public class JobSeeker {
 	@Column(name="nationality_id")
 	private String nationalityId;
 	
-	@Column(name="birth_year")
-	private int birthYear;
+	@Column(name="birth_date")
+	private Date birthDate;
+	
+	@OneToMany(mappedBy = "jobSeeker")
+	private List<CV> cvs;
 
 //	@OneToOne(cascade = CascadeType.ALL)
 //	@JoinColumn(name="user_id",referencedColumnName = "id")

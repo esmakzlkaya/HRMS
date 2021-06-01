@@ -20,7 +20,7 @@ public class MernisServiceAdapter implements UserCheckService {
 		
 		KPSPublic service= new KPSPublic(url);
 		KPSPublicSoap port=service.getPort(KPSPublicSoap.class);
-		return port.tcKimlikNoDogrula(Long.parseLong(jobSeeker.getNationalityId()), jobSeeker.getFirstName(), jobSeeker.getLastName(), jobSeeker.getBirthYear());
+		return port.tcKimlikNoDogrula(Long.parseLong(jobSeeker.getNationalityId()), jobSeeker.getFirstName(), jobSeeker.getLastName(), jobSeeker.getBirthDate().getYear());
 	}
 
 	
