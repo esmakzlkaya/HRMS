@@ -1,5 +1,6 @@
 package com.esmakzlkaya.HRMS.entities.concretes;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -36,10 +38,8 @@ public class CV {
 	@JoinColumn(name="job_seeker_id")
 	private JobSeeker jobSeeker;
 	
-	@NotBlank
-	@NotNull
-	@Column(name="image_url")
-	private String imageUrl;
+	@OneToMany(mappedBy = "cv")
+	private List<Image> images;
 	
 	@Nullable
 	@Column(name="cover_letter")

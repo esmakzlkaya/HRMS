@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class CvWithFieldsDto {
 
 	private int id;
+	
 	private String imageUrl;
 	
 	private String firstName;
