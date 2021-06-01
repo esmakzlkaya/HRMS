@@ -18,18 +18,17 @@ import com.esmakzlkaya.HRMS.entities.concretes.Image;
 public class ImageManager implements ImageService{
 
 	private ImageDao imageDao;
-	private CloudinaryApiService cloudinaryService;
+	//private CloudinaryApiService cloudinaryService;
 	
 	@Autowired
-	public ImageManager(ImageDao imageDao,CloudinaryApiService cloudinaryService) {
+	public ImageManager(ImageDao imageDao) {
 		super();
 		this.imageDao = imageDao;
-		this.cloudinaryService=cloudinaryService;
 	}
 	
 	@Override
 	public DataResult<List<Image>> getByCv(int cvId) {
-		return new SuccessDataResult<List<Image>>(imageDao.getByCv(cvId));
+		return new SuccessDataResult<List<Image>>(imageDao.getByCvId(cvId));
 	}
 
 	@Override

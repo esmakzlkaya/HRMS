@@ -8,5 +8,5 @@ import com.esmakzlkaya.HRMS.entities.concretes.Image;
 
 public interface ImageDao extends JpaRepository<Image, Integer>{
 
-	List<Image> getByCv(int cvId);
+	List<Image> getByCvId(int cvId);
 }
