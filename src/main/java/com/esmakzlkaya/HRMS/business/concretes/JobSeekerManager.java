@@ -68,7 +68,7 @@ public class JobSeekerManager implements JobSeekerService{
 
 	private boolean IsUserProfilesValid(JobSeeker jobSeeker) {
 		//JobSeekerDetailDto jobSeekerUser=jobSeekerDao.findByUserId(jobSeeker.getUserId());
-		if(jobSeeker.getEmail()!=null&&jobSeeker.getBirthYear()!=0&&jobSeeker.getFirstName()!=null&&jobSeeker.getLastName()!=null&&jobSeeker.getNationalityId()!=null&&jobSeeker.getPassword()!=null)
+		if(jobSeeker.getEmail()!=null&&jobSeeker.getBirthDate()!=null&&jobSeeker.getFirstName()!=null&&jobSeeker.getLastName()!=null&&jobSeeker.getNationalityId()!=null&&jobSeeker.getPassword()!=null)
 		{
 			return true;
 		}
